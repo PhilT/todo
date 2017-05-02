@@ -1,4 +1,4 @@
-class TasksController < ApplicationController
+class TasksController < ActionController::API
   def index
     render json: Task.all
   end

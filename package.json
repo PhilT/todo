@@ -1,5 +1,9 @@
 {
   "name": "todo",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "@fdaciuk/ajax": "^2.1.5",
+    "domready": "^1.0.8",
+    "tape": "^4.6.3"
+  }
 }
