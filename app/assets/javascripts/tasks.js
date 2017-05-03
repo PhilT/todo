@@ -6,12 +6,21 @@ const tasks = {
       let html = '<ul>'
       response.forEach(function (task) {
         const task_id = `task_${task.id}`
-        const due_fragment = task.due_at ? ` - due on <strong>${date.to_s(task.due_at)}</strong>` : ''
+        const due_fragment = task.due_at ? `due on <strong>${date.to_s(task.due_at)}</strong>` : ''
         const checked = task.completed_at ? ' checked' : ''
         html += `
           <li id="${task_id}_item">
-            <input type="checkbox" name="${task_id}" id="${task_id}"${checked}>
-            <label for="${task_id}"><strong>${task.name}</strong> (${task.category})${due_fragment}</label>
+            <div>
+              <input type="checkbox" name="${task_id}" id="${task_id}"${checked}>
+              <label for="${task_id}">
+                ${task.name}
+                (${task.category})
+              </label>
+            </div>
+            <div class="details">
+              <span>by ${task.created_by}</span>
+              <span>${due_fragment}</span>
+            </div>
           </li>`
       })
       html += '<ul>'

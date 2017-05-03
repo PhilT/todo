@@ -1,11 +1,29 @@
-@import url('https://fonts.googleapis.com/css?family=Handlee')
+@import url('https://fonts.googleapis.com/css?family=Indie+Flower')
 
 body, input, select
-  font-family: 'Handlee', cursive
   background-color: #333
   color: #999
+
+body
+  font-family: 'Indie Flower', cursive
+  font-size: 24px
+
+form, input, select
+  font-family: arial, sans
+  font-size: 16px
+
 ul
   list-style-type: none
+  li
+    padding: 0.25em
+    label
+      color: #bbb
+
+div.details
+  padding-left: 3em
+  font-size: small
+  font-family: arial, sans
+  color: #888
 
 input, select
   border: 1px #666 solid
@@ -13,6 +31,9 @@ input, select
 
 input[name=name]
   width: 300px
+
+label[for=due_on]
+  padding-left: 1em
 
 #container
   width: 800px
