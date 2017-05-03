@@ -4,6 +4,7 @@
   "dependencies": {
     "@fdaciuk/ajax": "^2.1.5",
     "domready": "^1.0.8",
+    "font-awesome": "^4.7.0",
     "pikaday": "^1.5.1",
     "tape": "^4.6.3"
   }

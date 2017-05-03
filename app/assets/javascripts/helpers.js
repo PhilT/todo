@@ -5,7 +5,7 @@ date = {
 }
 
 datetime = {
-  to_s: function (datetime) {
-    return (datetime ? new Date() : new Date(datetime)).toLocaleString()
+  to_s: function (time) {
+    return (time ? Date() : Date(time)).toLocaleString()
   }
 }

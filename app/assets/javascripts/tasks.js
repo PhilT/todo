@@ -1,4 +1,8 @@
 const tasks = {
+  check_icon: function(checked) {
+    return checked ? 'fa fa-check-square' : 'fa fa-square-o'
+  },
+
   list: function () {
     const div = dom.id('list-container')
 
@@ -8,11 +12,13 @@ const tasks = {
         const task_id = `task_${task.id}`
         const due_fragment = task.due_at ? `due on <strong>${date.to_s(task.due_at)}</strong>` : ''
         const checked = task.completed_at ? ' checked' : ''
+
         html += `
           <li id="${task_id}_item">
             <div>
               <input type="checkbox" name="${task_id}" id="${task_id}"${checked}>
               <label for="${task_id}">
+                <i class="fa ${tasks.check_icon(task.completed_at)}"></i>
                 ${task.name}
                 (${task.category})
               </label>
@@ -33,6 +39,8 @@ const tasks = {
           } else {
             tasks.restart(task.id)
           }
+          const icon = document.querySelector(`#task_${task.id}_item i`)
+          icon.setAttribute('class', tasks.check_icon(event.target.checked))
         })
       })
     })
