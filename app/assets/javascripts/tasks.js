@@ -10,7 +10,8 @@ const tasks = {
       let html = '<ul>'
       response.forEach(function (task) {
         const task_id = `task_${task.id}`
-        const due_fragment = task.due_at ? `due on <strong>${date.to_s(task.due_at)}</strong>` : ''
+        const due_fragment = task.due_at && !task.completed_at ? `due on <strong>${date.to_s(task.due_at)}</strong>` : ''
+        const time_taken = task.completed_at ? `Completed in ${task.time_taken}` : ''
         const checked = task.completed_at ? ' checked' : ''
 
         html += `
@@ -25,7 +26,7 @@ const tasks = {
             </div>
             <div class="details">
               <span>by ${task.created_by}</span>
-              <span>${due_fragment}</span>
+              <span>${due_fragment}${time_taken}</span>
             </div>
           </li>`
       })

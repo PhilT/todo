@@ -55,7 +55,8 @@ class TasksApiTest < ActionDispatch::IntegrationTest
       "created_by" => user.name,
       "category" => category.name,
       "due_at" => nil,
-      "completed_at" => nil
+      "completed_at" => nil,
+      "time_taken" => nil
     }
   end
 
