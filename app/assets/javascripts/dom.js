@@ -3,9 +3,12 @@ const dom = {
     return document.getElementById(id)
   },
 
-  form: function (field) {
-    const form = dom.id('new-task-container').querySelector('form')
-    return field ? form.querySelector(`input[name=${field}]`) : form
+  form: function () {
+    return dom.id('new-task-container').querySelector('form')
+  },
+
+  by_name: function (field) {
+    return dom.form().querySelector(`[name=${field}]`)
   },
 
   task: function (id) {

@@ -1,6 +1,9 @@
 domready(function () {
   tasks.list()
-  tasks.showForm()
+  categories.fetch().then(response => {
+    categories.all = response
+    tasks.showForm()
+    new Pikaday({ field: dom.id('datepicker') })
+  })
 
-  new Pikaday({ field: dom.id('datepicker') })
 })

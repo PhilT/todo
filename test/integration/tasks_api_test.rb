@@ -4,15 +4,16 @@ class TasksApiTest < ActionDispatch::IntegrationTest
   test 'lists tasks' do
     task = create_task
     get '/tasks', as: :json
+
     assert_response :success
-    assert_equal [task.attributes], response.parsed_body
+    assert_equal [attributes(task)], response.parsed_body
   end
 
   test 'creates tasks' do
     assert_difference -> { Task.count } do
       post '/tasks', params: {
         name: 'Work on UI',
-        category: 'general',
+        category_id: category.id.to_s,
         created_by: user.id
       }, as: :json
     end
@@ -47,11 +48,26 @@ class TasksApiTest < ActionDispatch::IntegrationTest
 
   private
 
+  def attributes(task)
+    {
+      "id" => task.id,
+      "name" => task.name,
+      "created_by" => user.name,
+      "category" => category.name,
+      "due_at" => nil,
+      "completed_at" => nil
+    }
+  end
+
   def user
     @user ||= User.create(name: 'A user')
   end
 
   def create_task
-    Task.create(name: 'Work on UI', category: 'general', created_by: user)
+    Task.create(name: 'Work on UI', category: category, created_by: user)
+  end
+
+  def category
+    @category ||= Category.create(name: 'feature')
   end
 end

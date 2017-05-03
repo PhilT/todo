@@ -1,6 +1,6 @@
 class TasksController < ActionController::API
   def index
-    render json: Task.all
+    render json: Task.includes(:category, :created_by)
   end
 
   def create
@@ -22,7 +22,7 @@ class TasksController < ActionController::API
   private
 
   def task_params
-    params.require(:task).permit(:name, :category, :due_at, :completed_at)
+    params.require(:task).permit(:name, :category_id, :due_at, :completed_at)
           .merge(created_by: current_user)
   end
 

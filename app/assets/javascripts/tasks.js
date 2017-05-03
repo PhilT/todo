@@ -50,7 +50,7 @@ const tasks = {
     div.innerHTML = `
       <form method="post" action="/tasks">
         <input type="text" name="name" placeholder="Task name">
-        <input type="text" name="category" placeholder="e.g. general">
+        ${html.select_tag(categories.all, 'category_id')}
         <label for="due_on">Due</label>
         <input type="text" name="due_on" id="datepicker">
         <input type="submit" value="Add">
@@ -62,11 +62,11 @@ const tasks = {
     dom.form().addEventListener('submit', event => {
       event.preventDefault()
 
-      if (dom.form('name').value && dom.form('category').value) {
+      if (dom.by_name('name').value && dom.by_name('category_id').value) {
         tasks.create({
-          name: dom.form('name').value,
-          category: dom.form('category').value,
-          due_at: dom.form('due_on').value
+          name: dom.by_name('name').value,
+          category_id: dom.by_name('category_id').value,
+          due_at: dom.by_name('due_on').value
         })
       } else {
         dom.id('errors').innerHTML = 'New tasks require a name and category'
