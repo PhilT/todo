@@ -11,6 +11,6 @@
 // about supported directives.
 //
 //= require domready
-//= require @fdaciuk/ajax/dist/ajax.min
+//= require @fdaciuk/ajax/src/ajax
 //= require pikaday
 //= require_tree .

@@ -22,7 +22,7 @@ class TasksController < ActionController::API
   private
 
   def task_params
-    params.require(:task).permit(:name, :category)
+    params.require(:task).permit(:name, :category, :due_at, :completed_at)
           .merge(created_by: current_user)
   end
 
