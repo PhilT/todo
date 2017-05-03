@@ -12,4 +12,5 @@
 //
 //= require domready
 //= require @fdaciuk/ajax/dist/ajax.min
+//= require pikaday
 //= require_tree .
