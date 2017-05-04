@@ -1,16 +1,25 @@
-const tasks = {
-  check_icon: function(checked) {
+const request = require('./ajax')
+const helpers = require('./helpers')
+const dom = require('./dom')
+const html = require('./html')
+const categories = require('./categories')
+
+module.exports = {
+  check_icon(checked) {
     return checked ? 'fa fa-check-square' : 'fa fa-square-o'
   },
 
-  list: function () {
+  list() {
     const div = dom.id('list-container')
 
-    request('GET', '/tasks').then(function (response, xhr) {
+    request('GET', '/tasks').then((response, xhr) => {
       let html = '<ul>'
-      response.forEach(function (task) {
+      response.forEach(task => {
         const task_id = `task_${task.id}`
-        const due_fragment = task.due_at && !task.completed_at ? `due on <strong>${date.to_s(task.due_at)}</strong>` : ''
+        const due_fragment =
+          task.due_at && !task.completed_at
+          ? `due on <strong>${helpers.toDate(task.due_at)}</strong>`
+          : ''
         const time_taken = task.completed_at ? `Completed in ${task.time_taken}` : ''
         const checked = task.completed_at ? ' checked' : ''
 
@@ -19,7 +28,7 @@ const tasks = {
             <div>
               <input type="checkbox" name="${task_id}" id="${task_id}"${checked}>
               <label for="${task_id}">
-                <i class="fa ${tasks.check_icon(task.completed_at)}"></i>
+                <i class="fa ${this.check_icon(task.completed_at)}"></i>
                 ${task.name}
                 (${task.category})
               </label>
@@ -33,36 +42,36 @@ const tasks = {
       html += '<ul>'
       div.innerHTML = html
 
-      response.forEach(function (task) {
+      response.forEach(task => {
         dom.id(`task_${task.id}`).addEventListener('click', event => {
           if (event.target.checked) {
-            tasks.complete(task.id, datetime.to_s())
+            this.complete(task.id, helpers.toDateTime())
           } else {
-            tasks.restart(task.id)
+            this.restart(task.id)
           }
           const icon = document.querySelector(`#task_${task.id}_item i`)
-          icon.setAttribute('class', tasks.check_icon(event.target.checked))
+          icon.setAttribute('class', this.check_icon(event.target.checked))
         })
       })
     })
   },
 
-  create: function (attributes) {
-    request('POST', '/tasks', {task: attributes}).then(function (response, xhr) {
-      tasks.list()
+  create(attributes) {
+    request('POST', '/tasks', {task: attributes}).then((response, xhr) => {
+      this.list()
     })
   },
 
-  complete: function (id, at) {
+  complete(id, at) {
     const data = { task: {completed_at: at} }
     request('PATCH', `/tasks/${id}`, data)
   },
 
-  restart: function (id) {
-    tasks.complete(id, null)
+  restart(id) {
+    this.complete(id, null)
   },
 
-  showForm: function () {
+  showForm() {
     const div = dom.id('new-task-container')
 
     div.innerHTML = `
@@ -81,18 +90,17 @@ const tasks = {
       event.preventDefault()
 
       if (dom.by_name('name').value && dom.by_name('category_id').value) {
-        tasks.create({
+        this.create({
           name: dom.by_name('name').value,
           category_id: dom.by_name('category_id').value,
           due_at: dom.by_name('due_on').value
         })
       } else {
         dom.id('errors').innerHTML = 'New tasks require a name and category'
-        window.setTimeout(function () {
+        window.setTimeout(() => {
           dom.id('errors').innerHTML = ''
         }, 5000)
       }
     })
-
   }
 }

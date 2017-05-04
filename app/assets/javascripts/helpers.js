@@ -1,11 +1,9 @@
-date = {
-  to_s: function (datetime) {
-    return (new Date(datetime)).toDateString()
-  }
-}
+module.exports = {
+  toDate(datetimeString) {
+    return (new Date(datetimeString)).toDateString()
+  },
 
-datetime = {
-  to_s: function (time) {
-    return (time ? Date() : Date(time)).toLocaleString()
+  toDateTime(time = null) {
+    return (time ? new Date(time) : new Date()).toLocaleString()
   }
 }

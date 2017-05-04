@@ -1,5 +1,5 @@
-const categories = {
-  fetch: function () {
-    return request('GET', '/categories')
+module.exports = {
+  fetch() {
+    return require('./ajax')('GET', '/categories')
   }
 }

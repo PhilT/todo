@@ -1,4 +1,4 @@
-const request = function (method, url, data) {
+module.exports = (method, url, data) => {
   return ajax({
     headers: {
       'content-type': 'application/json'
@@ -6,7 +6,7 @@ const request = function (method, url, data) {
     method: method,
     url: url,
     data: data && JSON.stringify(data)
-  }).catch(function (error, xhr) {
+  }).catch((error, xhr) => {
     document.querySelector('body').innerHTML = error
   })
 }
