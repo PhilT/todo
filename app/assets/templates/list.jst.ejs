@@ -1,0 +1,14 @@
+<li id="<%= task_id %>_item">
+  <div>
+    <input type="checkbox" name="<%= task_id %>" id="<%= task_id %>"<%= checked %>>
+    <label for="<%= task_id %>">
+      <i class="fa <%= tasks.check_icon(task.completed_at) %>"></i>
+      <%= task.name %>
+      (<%= task.category %>)
+    </label>
+  </div>
+  <div class="details">
+    <span>by <%= task.created_by %></span>
+    <span><%= due_fragment %><%= time_taken %></span>
+  </div>
+</li>

@@ -1,7 +1,6 @@
 const request = require('./ajax')
 const helpers = require('./helpers')
 const dom = require('./dom')
-const html = require('./html')
 const categories = require('./categories')
 
 module.exports = {
@@ -23,21 +22,7 @@ module.exports = {
         const time_taken = task.completed_at ? `Completed in ${task.time_taken}` : ''
         const checked = task.completed_at ? ' checked' : ''
 
-        html += `
-          <li id="${task_id}_item">
-            <div>
-              <input type="checkbox" name="${task_id}" id="${task_id}"${checked}>
-              <label for="${task_id}">
-                <i class="fa ${this.check_icon(task.completed_at)}"></i>
-                ${task.name}
-                (${task.category})
-              </label>
-            </div>
-            <div class="details">
-              <span>by ${task.created_by}</span>
-              <span>${due_fragment}${time_taken}</span>
-            </div>
-          </li>`
+        html += JST.list({ task_id, task, tasks: this, checked, time_taken, due_fragment })
       })
       html += '<ul>'
       div.innerHTML = html
@@ -74,15 +59,7 @@ module.exports = {
   showForm() {
     const div = dom.id('new-task-container')
 
-    div.innerHTML = `
-      <form method="post" action="/tasks">
-        <input type="text" name="name" placeholder="Task name">
-        ${html.select_tag(categories.all, 'category_id')}
-        <label for="due_on">Due</label>
-        <input type="text" name="due_on" id="datepicker">
-        <input type="submit" value="Add">
-      </form>
-    `
+    div.innerHTML = JST.form({ categories: categories.all })
 
     dom.form('name').focus()
 

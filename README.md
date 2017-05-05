@@ -88,3 +88,5 @@ Reordering could be implemented by drag and drop
 
 I've now added Browserify to allow proper module loading instead of polluting
 the global namespace. This also allows tests to be added using Tape.
+
+I've moved the HTML into JS Templates (under `app/assets/templates`)

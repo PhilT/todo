@@ -54,6 +54,7 @@ GEM
       xpath (~> 2.0)
     cliver (0.3.2)
     concurrent-ruby (1.0.5)
+    ejs (1.1.1)
     erubi (1.6.0)
     execjs (2.7.0)
     ffi (1.9.18)
@@ -175,6 +176,7 @@ PLATFORMS
 DEPENDENCIES
   byebug
   capybara (~> 2.13.0)
+  ejs
   jbuilder (~> 2.5)
   listen (>= 3.0.5, < 3.2)
   mysql2 (>= 0.3.18, < 0.5)
