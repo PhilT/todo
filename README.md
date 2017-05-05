@@ -1,10 +1,9 @@
 # Setup
 
 Create DB and run seeds (creates some initial users, categories
-and tasks) and create JS assets.
+and tasks)
 
     rails db:setup
-    yarn browserify -- -e app/assets/javascripts/init.js -o public/bundle.js --debug
 
 # Usage
 
@@ -46,6 +45,9 @@ direction it's heading in so this constraint was good news to me.
 I could have gone with Rails API for this one but that would have meant using
 a second server such as node to run the frontend code. Using Rails to serve
 the initial page seemed simpler for this task.
+
+Ajax errors are just bubbled up to and displayed on the page for now. Similar
+to Rails in development mode.
 
 # Problems
 
