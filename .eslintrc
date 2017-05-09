@@ -1,0 +1,23 @@
+{
+  "extends": "airbnb-base",
+  "plugins": ["import"],
+  "env": {
+    "amd": true,
+    "browser": true,
+    "es6": true,
+    "phantomjs": true,
+  },
+  "globals": {
+    "ajax": true,
+    "domready": true,
+    "JST": true,
+    "Pikaday": true,
+  },
+  "rules": {
+    "func-names": "off", // ES6 sets name correctly
+    "no-multiple-empty-lines": ["error", { "max": 1 }],
+    "no-param-reassign": ["error", { "props": false }],
+    "radix": ["error", "as-needed"],
+    "semi": [2, "never"],
+  }
+}

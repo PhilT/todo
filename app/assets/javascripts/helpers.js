@@ -5,5 +5,5 @@ module.exports = {
 
   toDateTime(time = null) {
     return (time ? new Date(time) : new Date()).toLocaleString()
-  }
+  },
 }

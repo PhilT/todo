@@ -6,12 +6,13 @@
 const tasks = require('./tasks')
 const categories = require('./categories')
 const dom = require('./dom')
+const ajax = require('./ajax')
 
 domready(() => {
   tasks.list()
-  categories.fetch().then(response => {
+  categories.fetch(ajax).then((response) => {
     categories.all = response
     tasks.showForm()
-    new Pikaday({ field: dom.id('datepicker') })
+    new Pikaday({ field: dom.id('datepicker') }) // eslint-disable-line no-new
   })
 })

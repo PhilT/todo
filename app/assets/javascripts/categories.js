@@ -1,5 +1,5 @@
 module.exports = {
-  fetch() {
-    return require('./ajax')('GET', '/categories')
-  }
+  fetch(ajax) {
+    return ajax('GET', '/categories')
+  },
 }

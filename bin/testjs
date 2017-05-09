@@ -1,0 +1,2 @@
+yarn eslint -s -- app/assets/javascripts test/javascripts && echo JavaScript is lint free
+yarn tape -s -- test/javascripts/**/*.js | yarn tap-dot -s

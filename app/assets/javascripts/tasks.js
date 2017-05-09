@@ -4,51 +4,60 @@ const dom = require('./dom')
 const categories = require('./categories')
 
 module.exports = {
-  check_icon(checked) {
+  checkIcon(checked) {
     return checked ? 'fa fa-check-square' : 'fa fa-square-o'
   },
 
   list() {
     const div = dom.id('list-container')
 
-    request('GET', '/tasks').then((response, xhr) => {
+    request('GET', '/tasks').then((response) => {
       let html = '<ul>'
-      response.forEach(task => {
-        const task_id = `task_${task.id}`
-        const due_fragment =
+      response.forEach((task) => {
+        const taskId = `task_${task.id}`
+        const dueFragment =
           task.due_at && !task.completed_at
           ? `due on <strong>${helpers.toDate(task.due_at)}</strong>`
           : ''
-        const time_taken = task.completed_at ? `Completed in ${task.time_taken}` : ''
+        const timeTaken = task.completed_at ? `Completed in ${task.timeTaken}` : ''
         const checked = task.completed_at ? ' checked' : ''
 
-        html += JST.list({ task_id, task, tasks: this, checked, time_taken, due_fragment })
+        html += JST.list({
+          taskId,
+          task,
+          tasks: this,
+          checked,
+          timeTaken,
+          dueFragment,
+        })
       })
       html += '<ul>'
       div.innerHTML = html
 
-      response.forEach(task => {
-        dom.id(`task_${task.id}`).addEventListener('click', event => {
+      response.forEach((task) => {
+        dom.id(`task_${task.id}`).addEventListener('click', (event) => {
           if (event.target.checked) {
             this.complete(task.id, helpers.toDateTime())
           } else {
             this.restart(task.id)
           }
           const icon = document.querySelector(`#task_${task.id}_item i`)
-          icon.setAttribute('class', this.check_icon(event.target.checked))
+          icon.setAttribute('class', this.checkIcon(event.target.checked))
         })
       })
     })
   },
 
   create(attributes) {
-    request('POST', '/tasks', {task: attributes}).then((response, xhr) => {
+    request('POST', '/tasks', {
+      task: attributes,
+    }).then(() => {
       this.list()
     })
   },
 
   complete(id, at) {
-    const data = { task: {completed_at: at} }
+    const data = { task: { completed_at: at } }
     request('PATCH', `/tasks/${id}`, data)
   },
 
@@ -63,14 +72,14 @@ module.exports = {
 
     dom.form('name').focus()
 
-    dom.form().addEventListener('submit', event => {
+    dom.form().addEventListener('submit', (event) => {
       event.preventDefault()
 
-      if (dom.by_name('name').value && dom.by_name('category_id').value) {
+      if (dom.byName('name').value && dom.byName('category_id').value) {
         this.create({
-          name: dom.by_name('name').value,
-          category_id: dom.by_name('category_id').value,
-          due_at: dom.by_name('due_on').value
+          name: dom.byName('name').value,
+          category_id: dom.byName('category_id').value,
+          due_at: dom.byName('due_on').value,
         })
       } else {
         dom.id('errors').innerHTML = 'New tasks require a name and category'
@@ -79,5 +88,5 @@ module.exports = {
         }, 5000)
       }
     })
-  }
+  },
 }

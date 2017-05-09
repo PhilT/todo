@@ -1,24 +1,24 @@
 module.exports = (() => {
-  const id = function(id) {
-    return document.getElementById(id)
+  const id = function (domId) {
+    return document.getElementById(domId)
   }
 
-  const form = function() {
+  const form = function () {
     return id('new-task-container').querySelector('form')
   }
 
-  const by_name = function(field) {
+  const byName = function (field) {
     return form().querySelector(`[name=${field}]`)
   }
 
-  const task = function(id) {
-    return id(`task_${id}`)
+  const task = function (domId) {
+    return id(`task_${domId}`)
   }
 
   return {
     id,
     form,
-    by_name,
-    task
+    byName,
+    task,
   }
 })()
