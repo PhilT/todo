@@ -1,9 +1,9 @@
-module.exports = (method, url, data, ajax = window.ajax) =>
+module.exports = (method, url, data, ajax = window.ajax, doc = document) =>
   ajax({
     headers: { 'content-type': 'application/json' },
     method,
     url,
     data: data && JSON.stringify(data),
   }).catch((error) => {
-    document.querySelector('body').innerHTML = error
+    doc.querySelector('body').innerHTML = error
   })
